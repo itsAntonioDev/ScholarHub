@@ -22,6 +22,6 @@ db.query('SELECT NOW()')
     .catch((err) => {
         console.error('[MAIN DB] Erro fatal:', err.message);
         process.exit(1);
-    });
+});
 
 export default db;
