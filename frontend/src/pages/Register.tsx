@@ -70,20 +70,28 @@ function Login(){
 
     return(
         <Container>
-            <Title>Welcome, Log into you account</Title>
+            <Title>Welcome, create your school account </Title>
             <Card>
-                <Title style={{"marginBottom": "1rem"}} $color="#667085"  $fontWeight="normal" $fontSize="1rem">It is our great pleasure to have you on board!</Title>
+                <Title style={{"marginBottom": "1rem"}} $color="#667085"  $fontWeight="normal" $fontSize="1rem">It is our great pleasure to have you on board! </Title>
+                 <Input
+                    type="text"
+                    placeholder="Enter the name of admin"
+                />
+                
                 <Input
-                    type="email"
-                    placeholder="Email"
+                    type="text"
+                    placeholder="Enter the name of school"
                 />
                 <Input
+                    type="Enter the school email"
+                    placeholder="Email"
+                />
+                 <Input
                     type="password"
                     placeholder="Senha"
                 />
-
-                <Button>Login</Button>
-                <Link>You don't have an account? <p style={{'color': '#2d88d4', 'fontWeight': 'bold', 'cursor': 'pointer'}} onClick={() => navigate('/register')}>Sign up</p> </Link>
+                <Button>Register</Button>
+                <Link>Already have an account? <p style={{'color': '#2d88d4', 'fontWeight': 'bold', 'cursor': 'pointer'}} onClick={() => navigate('/login')}>Sign in</p> </Link>
             </Card>
         </Container>      
     )
