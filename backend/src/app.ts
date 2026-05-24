@@ -2,9 +2,10 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { CorsOptions } from "cors";
+import authRoutes from "./routes/auth_routes"
 require('dotenv').config();
 
-const port = process.env.PORT;
+const port = process.env.PORT || "3000";
 
 const app = express();
 app.use(express.json({
@@ -31,6 +32,8 @@ const corsOptions: CorsOptions = {
 
 app.use(cors(corsOptions));
 
-app.listen(port, () => {
+app.use("/auth", authRoutes)
+
+app.listen(Number(port), () => {
   console.log(`Servidor rodando na porta: ${port}`);
 });
