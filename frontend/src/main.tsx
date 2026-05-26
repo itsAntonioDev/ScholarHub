@@ -10,6 +10,12 @@ import { createGlobalStyle } from 'styled-components'
 import Login from './pages/Login'
 import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
+import Billing from './pages/Billing'
+import Exams from './pages/Exams'
+import Features from './pages/Features'
+import Settings from './pages/Settings'
+import Students from './pages/Students'
+import Teachers from './pages/Teachers'
 //import Home from './pages/home'
 
 const GlobalStyle = createGlobalStyle`
@@ -35,6 +41,12 @@ createRoot(document.getElementById('root')!).render(
         <Route path="/login" element = {<Login/>}/>
         <Route path="/register" element = {<Register/>}/>
         <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/billing' element={<Billing />} />
+        <Route path='/exams' element={<Exams />} />       {/* era /settings */}
+        <Route path='/features' element={<Features />} />
+        <Route path='/settings' element={<Settings />} />
+        <Route path='/students' element={<Students />} />
+        <Route path='/teachers' element={<Teachers />} />
       </Routes>
     </BrowserRouter>
   </StrictMode> 
