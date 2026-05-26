@@ -11,6 +11,7 @@ const Container = styled.section`
     background: #fcfafa;
     gap: 1.5rem;
 `
+
 const Title = styled.h1 <{$fontSize?: string, $color?: string, $fontWeight?: string}>`
     color: ${props => props.$color || '#4f4f4f'}; 
     font-size: ${props => props.$fontSize};

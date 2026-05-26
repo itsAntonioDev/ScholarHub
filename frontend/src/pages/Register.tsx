@@ -1,5 +1,7 @@
+import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import { register } from "../services/routes/auth"
 
 const Container = styled.section`
     display: flex;
@@ -11,6 +13,7 @@ const Container = styled.section`
     background: #fcfafa;
     gap: 1.5rem;
 `
+
 const Title = styled.h1 <{$fontSize?: string, $color?: string, $fontWeight?: string}>`
     color: ${props => props.$color || '#4f4f4f'}; 
     font-size: ${props => props.$fontSize};
@@ -66,7 +69,30 @@ const Link = styled.div`
 `
 
 function Login(){
+    
+    const [email, setEmail] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [password, setPassword] = useState('');
+    const [schoolName, setSchoolName] = useState('');
+
     const navigate = useNavigate();
+
+    async function handleRegister(){
+        if(!email || !password || !fullName || !schoolName) return alert('Please fill in all fields')
+
+        try{    
+            const {data: response} = await register(email, password, fullName, schoolName)
+       
+            if(response.success) {
+                alert(response.message)
+                navigate('/login')
+            }
+        }catch(error){
+            console.error(error)
+            alert('An error occurred while trying to register, please try again later')
+        }
+    }
+    
 
     return(
         <Container>
@@ -76,21 +102,28 @@ function Login(){
                  <Input
                     type="text"
                     placeholder="Enter the name of admin"
+                    value={fullName}
+                    onChange={(e) => setFullName(e.target.value)}
                 />
-                
                 <Input
                     type="text"
                     placeholder="Enter the name of school"
+                    value={schoolName}
+                    onChange={(e) => setSchoolName(e.target.value)}
                 />
                 <Input
-                    type="Enter the school email"
+                    type="email"
                     placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                  <Input
                     type="password"
                     placeholder="Senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
-                <Button>Register</Button>
+                <Button onClick={handleRegister}>Register</Button>
                 <Link>Already have an account? <p style={{'color': '#2d88d4', 'fontWeight': 'bold', 'cursor': 'pointer'}} onClick={() => navigate('/login')}>Sign in</p> </Link>
             </Card>
         </Container>      

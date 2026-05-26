@@ -5,6 +5,17 @@ const bcryptSalRounds = 12;
 
 export async function registerService(email: string, full_name: string, password: string, school_name: string){
     try {
+        
+        const {rows} = await db.query('SELECT email FROM users WHERE email = $1', [email]);
+        
+        if(rows.length > 0){
+            return({
+                status: 409,
+                success: false,
+                message: 'Email já cadastrado!'
+            });
+        }
+
         const passswordHashed = await bcrypt.hash(password, bcryptSalRounds);
 
         if(full_name.length < 3){
