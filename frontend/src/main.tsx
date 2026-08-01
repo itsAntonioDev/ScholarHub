@@ -15,7 +15,15 @@ import Exams from './pages/Exams'
 import Features from './pages/Features'
 import Settings from './pages/Settings'
 import Students from './pages/Students'
+import AddStudent from './pages/AddStudent'
+import Classes from './pages/Classes'
+import AddClass from './pages/AddClass'
 import Teachers from './pages/Teachers'
+import AddTeacher from './pages/AddTeacher'
+import TeacherProfile from './pages/TeacherProfile'
+import { TeachersProvider } from './providers/TeachersContext'
+import { StudentsProvider } from './providers/StudentsContext'
+import { ClassesProvider } from './providers/ClassesContext'
 //import Home from './pages/home'
 
 const GlobalStyle = createGlobalStyle`
@@ -36,19 +44,29 @@ createRoot(document.getElementById('root')!).render(
   <StrictMode>
     <GlobalStyle/>
     <BrowserRouter>
-      <Routes>
-        <Route path="/" element = {<Navigate to={"/login"}/>}/>
-        <Route path="/login" element = {<Login/>}/>
-        <Route path="/register" element = {<Register/>}/>
-        <Route path='/dashboard' element={<Dashboard />} />
-        <Route path='/billing' element={<Billing />} />
-        <Route path='/exams' element={<Exams />} />       {/* era /settings */}
-        <Route path='/features' element={<Features />} />
-        <Route path='/settings' element={<Settings />} />
-        <Route path='/students' element={<Students />} />
-        <Route path='/teachers' element={<Teachers />} />
-      </Routes>
+      <TeachersProvider>
+        <StudentsProvider>
+        <ClassesProvider>
+        <Routes>
+          <Route path="/" element = {<Navigate to={"/login"}/>}/>
+          <Route path="/login" element = {<Login/>}/>
+          <Route path="/register" element = {<Register/>}/>
+          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/billing' element={<Billing />} />
+          <Route path='/exams' element={<Exams />} />       {/* era /settings */}
+          <Route path='/features' element={<Features />} />
+          <Route path='/settings' element={<Settings />} />
+          <Route path='/students' element={<Students />} />
+          <Route path='/students/add' element={<AddStudent />} />
+          <Route path='/classes' element={<Classes />} />
+          <Route path='/classes/add' element={<AddClass />} />
+          <Route path='/teachers' element={<Teachers />} />
+          <Route path='/teachers/add' element={<AddTeacher />} />
+          <Route path='/teachers/:id' element={<TeacherProfile />} />
+        </Routes>
+        </ClassesProvider>
+        </StudentsProvider>
+      </TeachersProvider>
     </BrowserRouter>
   </StrictMode> 
 )
- 

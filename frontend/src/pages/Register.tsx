@@ -1,4 +1,5 @@
 import { useState } from "react"
+import type { FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
 import { register } from "../services/routes/auth"
@@ -57,6 +58,14 @@ const Button = styled.button`
 
 `
 
+const ErrorText = styled.p`
+    color: #dc2626;
+    font-size: 0.85rem;
+    margin: -0.5rem 0 0;
+    width: 100%;
+    text-align: left;
+`
+
 const Link = styled.div`
     color:  #667085;
     display: flex;
@@ -68,28 +77,45 @@ const Link = styled.div`
 
 `
 
-function Login(){
+function Register(){
     
     const [email, setEmail] = useState('');
     const [fullName, setFullName] = useState('');
     const [password, setPassword] = useState('');
     const [schoolName, setSchoolName] = useState('');
+    const [error, setError] = useState<string | null>(null);
+    const [loading, setLoading] = useState(false);
 
     const navigate = useNavigate();
 
-    async function handleRegister(){
-        if(!email || !password || !fullName || !schoolName) return alert('Please fill in all fields')
+    async function handleRegister(e: FormEvent){
+        e.preventDefault()
+        setError(null)
 
-        try{    
-            const {data: response} = await register(email, password, fullName, schoolName)
-       
+        if(!email || !password || !fullName || !schoolName) {
+            setError('Preencha todos os campos.')
+            return
+        }
+
+        setLoading(true)
+
+        try{
+            // Ordem correta: email, full_name, password, school_name
+            const {data: response} = await register(email, fullName, password, schoolName)
+
             if(response.success) {
-                alert(response.message)
                 navigate('/login')
+            } else {
+                setError(response.message || 'Não foi possível registrar.')
             }
-        }catch(error){
+        }catch(error: any){
             console.error(error)
-            alert('An error occurred while trying to register, please try again later')
+            const message =
+                error?.response?.data?.message ||
+                'Ocorreu um erro ao tentar registrar, tenta de novo.'
+            setError(message)
+        } finally {
+            setLoading(false)
         }
     }
     
@@ -97,7 +123,7 @@ function Login(){
     return(
         <Container>
             <Title>Welcome, create your school account </Title>
-            <Card>
+            <Card as="form" onSubmit={handleRegister}>
                 <Title style={{"marginBottom": "1rem"}} $color="#667085"  $fontWeight="normal" $fontSize="1rem">It is our great pleasure to have you on board! </Title>
                  <Input
                     type="text"
@@ -123,11 +149,16 @@ function Login(){
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                 />
-                <Button onClick={handleRegister}>Register</Button>
+
+                {error && <ErrorText>{error}</ErrorText>}
+
+                <Button type="submit" disabled={loading}>
+                    {loading ? "Registrando..." : "Register"}
+                </Button>
                 <Link>Already have an account? <p style={{'color': '#2d88d4', 'fontWeight': 'bold', 'cursor': 'pointer'}} onClick={() => navigate('/login')}>Sign in</p> </Link>
             </Card>
         </Container>      
     )
 }
 
-export default Login
+export default Register

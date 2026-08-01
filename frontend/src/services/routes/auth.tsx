@@ -11,3 +11,10 @@ export async function register(email: string, full_name: string, password: strin
         school_name
     });
 }
+
+export async function login(email: string, password: string) {
+    return await API.post(`${route}/login`, {
+        email,
+        password
+    });
+}

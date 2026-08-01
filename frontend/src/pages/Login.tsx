@@ -1,5 +1,8 @@
+import { useState } from "react"
+import type { FormEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import styled from "styled-components"
+import { login } from "../services/routes/auth"
 
 const Container = styled.section`
     display: flex;
@@ -53,6 +56,18 @@ const Button = styled.button`
     cursor: pointer;
     margin-top: 8px;
 
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+`
+
+const ErrorText = styled.p`
+    color: #dc2626;
+    font-size: 0.85rem;
+    margin: -0.5rem 0 0;
+    width: 100%;
+    text-align: left;
 `
 
 const Link = styled.div`
@@ -69,21 +84,65 @@ const Link = styled.div`
 function Login(){
     const navigate = useNavigate();
 
+    const [email, setEmail] = useState("")
+    const [password, setPassword] = useState("")
+    const [error, setError] = useState<string | null>(null)
+    const [loading, setLoading] = useState(false)
+
+    async function handleLogin(e: FormEvent) {
+        e.preventDefault()
+        setError(null)
+
+        if (!email || !password) {
+            setError("Preencha email e senha.")
+            return
+        }
+
+        setLoading(true)
+
+        try {
+            const response = await login(email, password)
+
+            const token = response.data?.token || response.data?.access_token
+            if (token) {
+                localStorage.setItem("token", token)
+            }
+
+            navigate("/dashboard")
+        } catch (err: any) {
+            const message =
+                err?.response?.data?.message ||
+                err?.response?.data?.error ||
+                "Email ou senha inválidos."
+            setError(message)
+        } finally {
+            setLoading(false)
+        }
+    }
+
     return(
         <Container>
             <Title>Welcome, Log into you account</Title>
-            <Card>
+            <Card as="form" onSubmit={handleLogin}>
                 <Title style={{"marginBottom": "1rem"}} $color="#667085"  $fontWeight="normal" $fontSize="1rem">It is our great pleasure to have you on board!</Title>
                 <Input
                     type="email"
                     placeholder="Email"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
                     type="password"
                     placeholder="Senha"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
 
-                <Button>Login</Button>
+                {error && <ErrorText>{error}</ErrorText>}
+
+                <Button type="submit" disabled={loading}>
+                    {loading ? "Entrando..." : "Login"}
+                </Button>
                 <Link>You don't have an account? <p style={{'color': '#2d88d4', 'fontWeight': 'bold', 'cursor': 'pointer'}} onClick={() => navigate('/register')}>Sign up</p> </Link>
             </Card>
         </Container>      

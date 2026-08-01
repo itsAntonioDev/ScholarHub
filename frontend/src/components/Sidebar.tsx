@@ -128,6 +128,7 @@ const Badge = styled.span`
   margin-left: auto;
 `
 
+
 const menuItems = [
   { icon: "", label: "Dashboard", path: "/dashboard" },
   { icon: "", label: "Teachers", path: "/teachers" },
@@ -145,7 +146,7 @@ function Sidebar() {
     <Container>
       <LogoWrapper>
         <LogoIcon>S</LogoIcon>
-        <LogoText>SchoolarHub</LogoText>
+        <LogoText>ScholarHub</LogoText>
       </LogoWrapper>
 
       <Nav>
