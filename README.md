@@ -1,21 +1,21 @@
 # ScholarHub
 
-O **ScholarHub** é uma aplicação full stack desenvolvida para facilitar o gerenciamento do ambiente escolar, permitindo o cadastro e a administração de professores, alunos e turmas de forma simples e organizada.
+**ScholarHub** is a full-stack application developed to simplify school environment management, allowing teachers, students, and classes to be registered and managed in a simple and organized way.
 
-O projeto foi desenvolvido com foco em boas práticas de desenvolvimento, arquitetura organizada e integração entre frontend e backend, simulando um sistema utilizado em um ambiente real.
+The project was developed with a focus on good development practices, organized architecture, and frontend-backend integration, simulating a system used in a real-world environment.
 
-## Principais funcionalidades
+## Main Features
 
-* Autenticação de usuários com **JWT** e criptografia de senhas utilizando **bcrypt**.
-* Cadastro, edição, visualização e remoção de professores, alunos e turmas (CRUD).
-* Upload de foto de perfil para professores.
-* Importação de dados por meio de arquivos **CSV**.
-* Gerenciamento de estado global utilizando **React Context API**.
-* Navegação protegida com rotas autenticadas.
-* Integração com banco de dados **PostgreSQL (Supabase)**.
-* API REST desenvolvida em **Node.js**, **Express** e **TypeScript**.
+* User authentication with **JWT** and password encryption using **bcrypt**.
+* Create, edit, view, and delete teachers, students, and classes (CRUD).
+* Profile photo upload for teachers.
+* Data import through **CSV** files.
+* Global state management using **React Context API**.
+* Protected navigation with authenticated routes.
+* Integration with **PostgreSQL (Supabase)** database.
+* REST API developed with **Node.js**, **Express**, and **TypeScript**.
 
-## Tecnologias utilizadas
+## Technologies Used
 
 ### Frontend
 
@@ -34,8 +34,8 @@ O projeto foi desenvolvido com foco em boas práticas de desenvolvimento, arquit
 * JWT
 * bcrypt
 
-## Objetivo
+## Objective
 
-O ScholarHub foi criado para colocar em prática conceitos fundamentais do desenvolvimento full stack, como autenticação, integração com banco de dados, arquitetura em camadas, consumo de APIs REST, gerenciamento de estado e manipulação de arquivos.
+ScholarHub was created to put fundamental full-stack development concepts into practice, such as authentication, database integration, layered architecture, REST API consumption, state management, and file handling.
 
-Este projeto representa um ambiente próximo de uma aplicação real, servindo como demonstração das minhas habilidades em desenvolvimento web moderno e da capacidade de construir soluções completas utilizando tecnologias amplamente adotadas pelo mercado.
+This project represents an environment close to a real-world application, serving as a demonstration of my skills in modern web development and my ability to build complete solutions using technologies widely adopted in the industry.
